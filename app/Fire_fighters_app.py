@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 # import seaborn as sns
 # import joblib
+from PIL import Image
 
 # Read data
 # df = pd.read_csv("oct23_bds_int_firefighters\app\test_sample_i.csv")
@@ -35,6 +36,7 @@ elif page == "Exploration":
 elif page == "Data Visualization":
     # Insert DataViz contents here
     st.write("## Data Visualization")
+    st.image("oct23_bds_int_firefighters/app/Crosstab_meantime.png", use_column_width=True)
     pass
 elif page == "Modelling":
     # Insert Modelling contents here
