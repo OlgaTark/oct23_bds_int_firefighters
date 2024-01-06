@@ -22,7 +22,7 @@ if page == "Home":
     # Insert Introduction contents here
     # App title
     st.title("London Fire Brigade Response Time 2023") 
-    st.image("Lego_1.jpg", caption="How quick we are at the incident?", use_column_width=True)  
+    st.image("oct23_bds_int_firefighters/app/Lego_1.jpg", caption="How quick we are at the incident?", use_column_width=True)  
     pass
 elif page == "Introduction":
     # Insert Introduction contents here
