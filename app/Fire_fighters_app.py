@@ -8,6 +8,7 @@ from PIL import Image
 
 # Read data
 # df = pd.read_csv("oct23_bds_int_firefighters\app\test_sample_i.csv")
+df_i_2022=pd.read_csv("oct23_bds_int_firefighters/data/raw/df_i_2022.csv")
 
 
 
@@ -32,6 +33,12 @@ elif page == "Introduction":
 elif page == "Exploration":
     # Insert Exploration contents here
     st.write("## Exploration")
+    st.dataframe(df_i_2022.head(10))
+    st.write(df_i_2022.shape)
+    st.dataframe(df_i_2022.describe())
+  
+    if st.checkbox("Show NA") :
+       st.dataframe(df_i_2022.isna().sum())
     pass
 elif page == "Data Visualization":
     # Insert DataViz contents here
