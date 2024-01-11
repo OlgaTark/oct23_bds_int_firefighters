@@ -20,7 +20,8 @@ stations_boroughs=pd.read_csv("oct23_bds_int_firefighters/data/raw/stations_boro
 
 # Sidebar title and page selection
 st.sidebar.title("Table of Contents")
-pages = ["Home","Introduction","Exploration", "Data Visualization", "Modelling", "Find out for yourself"]
+pages = ["Home","Introduction","Exploration", "Data Visualization", "Modelling", 
+         "Find out for yourself", "Conclusion"]
 page = st.sidebar.radio("Go to", pages)
 
 # Display content based on the selected page
@@ -172,220 +173,211 @@ elif page == "Data Visualization":
     pass
 
 
-if page == "Modelling":
-  import joblib
-  from sklearn.metrics import confusion_matrix, classification_report
+elif page == "Modelling":
+    import joblib
+    from sklearn.metrics import confusion_matrix, classification_report
   
-  subpages = ["General Approach", "Regression with Random Forest", "Random Forest Classifier", "XGBoost Classifier"]
-  subpage = st.sidebar.radio("Go to", subpages)
+    subpages = ["General Approach", "Regression with Random Forest", "Random Forest Classifier", "XGBoost Classifier"]
+    subpage = st.sidebar.radio("Go to", subpages)
 
-  if subpage == "General Approach":
-    st.header('General Approach')
-    st.markdown("""
-    - Random splitting of the data with 20% allocated to the training set
-    - Regression Models and Classification Models 
+    if subpage == "General Approach":
+      st.header('General Approach')
+      st.markdown("""
+      - Random splitting of the data with 20% allocated to the testing set
+      - Regression Models and Classification Models 
                            
-    """)
+      """)
 
-    st.write (' #### Approach in Regressinon Models')
-    st.markdown("""
-    - Performance measurement: $R^2$ - Value
-    - Looking at Attendance Time as well as Turnout Time and Travel Time separately, where:
-    """)
-    st.latex(r""" \boxed{\text{Attendance Time} = \text{Turnout Time} + \text{Travel Time}} """)
-    """ 
-    - We explored various methodologies, including Linear Regression, Decision Tree Regressor, Random Forest Regressor, 
-      and XGBoost Regressor, employing diverse feature configurations. The most promising results were achieved with the 
-      Decision Tree and Random Forest Regressors.
-    - To achieve better results with our top-performing model, we had to generate numerous dummy variables.
-     """
+      st.write (' #### Approach in Regressinon Models')
+      st.markdown("""
+      - Performance measurement: $R^2$ - Value
+      - Looking at Attendance Time as well as Turnout Time and Travel Time separately, where:
+      """)
+      st.latex(r""" \boxed{\text{Attendance Time} = \text{Turnout Time} + \text{Travel Time}} """)
+      """ 
+      - We explored various methodologies, including Linear Regression, Decision Tree Regressor, Random Forest Regressor, 
+        and XGBoost Regressor, employing diverse feature configurations. The most promising results were achieved with the 
+        Decision Tree and Random Forest Regressors.
+      - To achieve better results with our top-performing model, we had to generate numerous dummy variables.
+      """
 
-    st.markdown(' #### Approach in Classification Models')
-    st.markdown("""
-    - Performance measurement: accuracy score (classification report) and confusion matrix 
-    - Classification of the **response time** into 3-minute intervals and 4-minute intervals   
-    - Random Forest and XGBoost      
-    """)
+      st.markdown(' #### Approach in Classification Models')
+      st.markdown("""
+      - Classification of the **response time** into 3-minute intervals and 4-minute intervals
+      - Performance measurement: accuracy score (classification report) and confusion matrix   
+      - Random Forest and XGBoost      
+      """)
 
-  if subpage == "Regression with Random Forest":
-     st.markdown("""
-     For the Random Forest model we used following variables 
-     ```python
-     features = 
-        ['distance', 'HourOfCall', 'CalYear', 'FirstPumpArriving_DeployedFromStation', 
-         'DeployedFromLocation', 'IncidentGroup', 'StopCodeDescription',
-         'PropertyCategory', 'IncGeo_BoroughName','PlusCode_Description']  
-      ```           
-     All categorical variables were transformed into dummy variables, resulting together with other numerical variables in 166 explanatory columns in total.
+    if subpage == "Regression with Random Forest":
+       st.markdown("""
+       For the Random Forest model we used following variables 
+       ```python
+       features = 
+          ['distance', 'HourOfCall', 'CalYear', 'FirstPumpArriving_DeployedFromStation', 
+           'DeployedFromLocation', 'IncidentGroup', 'StopCodeDescription',
+           'PropertyCategory', 'IncGeo_BoroughName','PlusCode_Description']  
+        ```           
+       All categorical variables were transformed into dummy variables, resulting together with other numerical variables in 166 explanatory columns in total.
        
-     - TurnoutTimeSeconds (Random Forest):
-       * Mean Squared Error (MSE): 1571.41
-       * R-squared ($R^2$): 0.1448
-     - TravelTimeSeconds (Random Forest):
-       * Mean Squared Error (MSE): 11026.68
-       * R-squared ($R^2$): 0.3933
-     - AttendanceTimeSeconds (Random Forest):
-       * Mean Squared Error (MSE): 11283.71
-       * R-squared ($R^2$): 0.3953
+       - TurnoutTimeSeconds (Random Forest):
+         * Mean Squared Error (MSE): 1571.41
+         * R-squared ($R^2$): 0.1448
+       - TravelTimeSeconds (Random Forest):
+         * Mean Squared Error (MSE): 11026.68
+         * R-squared ($R^2$): 0.3933
+       - AttendanceTimeSeconds (Random Forest):
+         * Mean Squared Error (MSE): 11283.71
+         * R-squared ($R^2$): 0.3953
           """)
-     
-     
-     
-     
       
 
-  if subpage == "Random Forest Classifier":
-    # Handle Random Forest Classifier section
+    if subpage == "Random Forest Classifier":
+      # Handle Random Forest Classifier section
       
-     st.markdown(" ## Random Forest Classifier")
-     # Markdown-Text
-     st.markdown("""
-     - We attempted to incorporate different features::
-     ```python
-     features = 
-        ['distance', 'bor_sqkm', 'Month', 'DayOfWeek', 'distance_stat', 'pop', 
-        'area_sqkm_stat', 'station', 'PropertyType', 'IncidentStationGround', 
-        'FirstPumpArriving_DeployedFromStation', 'HourOfCall', 'CallsPerIncident']     
-     ```
-     - We conducted two distinct grid searches on one year of the data::
-     ```python
-     param_grid = {'n_estimators': [50, 100, 200],  
-                   'max_depth': [None, 10, 20, 30],  
-                   'min_samples_split': [2, 5, 10] }
+       st.markdown(" ## Random Forest Classifier")
+       # Markdown-Text
+       st.markdown("""
+       - We attempted to incorporate different features::
+       ```python
+       features = 
+          ['distance', 'bor_sqkm', 'Month', 'DayOfWeek', 'distance_stat', 'pop', 
+          'area_sqkm_stat', 'station', 'PropertyType', 'IncidentStationGround', 
+          'FirstPumpArriving_DeployedFromStation', 'HourOfCall', 'CallsPerIncident']     
+       ```
+       - We conducted two distinct grid searches on one year of the data::
+       ```python
+       param_grid = {'n_estimators': [50, 100, 200],  
+                     'max_depth': [None, 10, 20, 30],  
+                     'min_samples_split': [2, 5, 10] }
               
-     param_grid = {'bootstrap': [True],
-                  'max_depth': [50, 75, 100],
-                  'max_features': [2, 3],
-                  'min_samples_leaf': [3, 4, 5],
-                  'min_samples_split': [8, 10, 12],
-                  'n_estimators': [200, 300, 500, 1000]}
+       param_grid = {'bootstrap': [True],
+                    'max_depth': [50, 75, 100],
+                    'max_features': [2, 3],
+                    'min_samples_leaf': [3, 4, 5],
+                    'min_samples_split': [8, 10, 12],
+                    'n_estimators': [200, 300, 500, 1000]}
            
-     ```
-     - We achieved the best results using the following set of hyperparameters and only 5 features:   
-      ```python
-      features = 
-          ['HourOfCall', 'distance', 'distance_stat', 'pop_per_stat', 'bor_sqkm']
+       ```
+       - We achieved the best results using the following set of hyperparameters and only 5 features:   
+        ```python
+        features = 
+            ['HourOfCall', 'distance', 'distance_stat', 'pop_per_stat', 'bor_sqkm']
               
-     params = 
-         {max_depth=10, min_samples_split=5, n_estimators=200}   
-     ```                      
-     """)
+       params = 
+           {max_depth=10, min_samples_split=5, n_estimators=200}   
+       ```                      
+       """)
 
-     st.write(" ### Results:")
-     selected_option = st.radio("Choose an option", ["3 minutes", "4 minutes"])
+       st.write(" ### Results:")
+       selected_option = st.radio("Choose an option", ["3 minutes", "4 minutes"])
 
-     if selected_option == "3 minutes":
-      y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_rf3.csv')
-      y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_rf3.csv')
-      y_test_np = y_test.values.flatten()
-      y_pred_np = y_pred.values.flatten()
-      class_mapping = {1: '00-03min', 2: '03-06min', 3: '06-09min', 4: '09-12min', 5: '12-15min', 6: '> 15min'}  # und so weiter...
-      # Umbenennung der Klassen in y_test und y_pred
-      y_test_mapped = [class_mapping[y] for y in y_test_np]
-      y_pred_mapped = [class_mapping[y] for y in y_pred_np]
-      # Erstellung des classification reports mit den neuen Klassenbezeichnungen
-      report = classification_report(y_test_mapped, y_pred_mapped)
-      conf_matrix = confusion_matrix(y_test_np, y_pred_np)
-      cm = pd.DataFrame(conf_matrix, columns=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'],
-                           index=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'])
-     if selected_option == '4 minutes':
-      y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_rf4.csv')
-      y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_rf4.csv')
-      y_test_np = y_test.values.flatten()
-      y_pred_np = y_pred.values.flatten()
-      class_mapping = {1: '00-04min', 2: '04-08min', 3: '08-12min', 4: '12-16min', 5: '> 16min'}  # und so weiter...
-      # Umbenennung der Klassen in y_test und y_pred
-      y_test_mapped = [class_mapping[y] for y in y_test_np]
-      y_pred_mapped = [class_mapping[y] for y in y_pred_np]
-      # Erstellung des classification reports mit den neuen Klassenbezeichnungen
-      report = classification_report(y_test_mapped, y_pred_mapped)    # output_mapped=True)
-      conf_matrix = confusion_matrix(y_test_np, y_pred_np)
-      cm = pd.DataFrame(conf_matrix, columns=['0-4min', '4-8min', '8-12min', '12-16min', '>16min'],
+       if selected_option == "3 minutes":
+        y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_rf3.csv')
+        y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_rf3.csv')
+        y_test_np = y_test.values.flatten()
+        y_pred_np = y_pred.values.flatten()
+        class_mapping = {1: '00-03min', 2: '03-06min', 3: '06-09min', 4: '09-12min', 5: '12-15min', 6: '> 15min'}  # und so weiter...
+        # Umbenennung der Klassen in y_test und y_pred
+        y_test_mapped = [class_mapping[y] for y in y_test_np]
+        y_pred_mapped = [class_mapping[y] for y in y_pred_np]
+        # Erstellung des classification reports mit den neuen Klassenbezeichnungen
+        report = classification_report(y_test_mapped, y_pred_mapped)
+        conf_matrix = confusion_matrix(y_test_np, y_pred_np)
+        cm = pd.DataFrame(conf_matrix, columns=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'],
+                             index=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'])
+       if selected_option == '4 minutes':
+        y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_rf4.csv')
+        y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_rf4.csv')
+        y_test_np = y_test.values.flatten()
+        y_pred_np = y_pred.values.flatten()
+        class_mapping = {1: '00-04min', 2: '04-08min', 3: '08-12min', 4: '12-16min', 5: '> 16min'}  # und so weiter...
+        # Umbenennung der Klassen in y_test und y_pred
+        y_test_mapped = [class_mapping[y] for y in y_test_np]
+        y_pred_mapped = [class_mapping[y] for y in y_pred_np]
+        # Erstellung des classification reports mit den neuen Klassenbezeichnungen
+        report = classification_report(y_test_mapped, y_pred_mapped)    # output_mapped=True)
+        conf_matrix = confusion_matrix(y_test_np, y_pred_np)
+        cm = pd.DataFrame(conf_matrix, columns=['0-4min', '4-8min', '8-12min', '12-16min', '>16min'],
                            index=['0-4min', '4-8min', '8-12min', '12-16min', '>16min'])
     
-     st.write(' ##### Classification Report')
-     st.text(report)
-     st.write(' ##### Confusion Matrix')
-     st.write(cm)
+       st.write(' ##### Classification Report')
+       st.text(report)
+       st.write(' ##### Confusion Matrix')
+       st.write(cm)
     
 
-  #XGBoost Classifier for 4min Classes, 5 features and trained on years 2020, 2021, 2022
-  if subpage == "XGBoost Classifier":
-    # Handle XGBoost Classifier section
+    #XGBoost Classifier for 4min Classes, 5 features and trained on years 2020, 2021, 2022
+    if subpage == "XGBoost Classifier":
+      # Handle XGBoost Classifier section
      
-     st.markdown(" ## XGBoost Classifier")
-     # Markdown-Text
-     st.markdown("""
-     - We incorporated many different features::
-     ```python
-     features = [
-         'CallsPerIncidents', 'distance', 'bor_sqkm', 'Month', 'DayOfWeek', 
-         'distance_stat', 'pop', 'in_o_out', 'lat_cal_r', 'long_cal_r', 
-         'area_sqkm_stat', 'station', 'SpecialServiceType', 'PropertyType', 
-         'IncidentStationGround', 'FirstPumpArriving_DeployedFromStation', 
-         'DateAndTimeMobilised', 'IncGeo_WardName']
-     ```
-     - We conducted two distinct grid searches on one year of the data::
-     ```python
-      param_grid = {
-                    'n_estimators': [50, 200, 400, 600],  
-                    'max_depth': [3, 5, 8,10],  
-                    'learning_rate': [0.1, 0.2, 0.5, 0.8]  }
+       st.markdown(" ## XGBoost Classifier")
+       # Markdown-Text
+       st.markdown("""
+       - We incorporated many different features::
+       ```python
+       features = [
+           'CallsPerIncidents', 'distance', 'bor_sqkm', 'Month', 'DayOfWeek', 
+           'distance_stat', 'pop', 'in_o_out', 'lat_cal_r', 'long_cal_r', 
+           'area_sqkm_stat', 'station', 'SpecialServiceType', 'PropertyType', 
+           'IncidentStationGround', 'FirstPumpArriving_DeployedFromStation', 
+           'DateAndTimeMobilised', 'IncGeo_WardName']
+       ```
+       - We conducted two distinct grid searches on one year of the data::
+       ```python
+       param_grid = {
+                      'n_estimators': [50, 200, 400, 600],  
+                      'max_depth': [3, 5, 8,10],  
+                      'learning_rate': [0.1, 0.2, 0.5, 0.8]  }
               
-      param_grid = {
-                    'n_estimators': [50, 100, 200, 400],
-                    'max_depth': [3, 4, 5, 8],
-                    'learning_rate': [0.01, 0.1, 0.2, 0.5] }
+        param_grid = {
+                      'n_estimators': [50, 100, 200, 400],
+                      'max_depth': [3, 4, 5, 8],
+                      'learning_rate': [0.01, 0.1, 0.2, 0.5] }
 
-     ```
-     - We achieved the best results with the following set of hyperparameters:   
-     ```python              
-     params = { 'n_estimators': 400, 'max_depth': 8,  'learning_rate': 0.1  } 
-     ```                      
-     """)
+       ```
+       - We achieved the best results with the following set of hyperparameters:   
+       ```python              
+       params = { 'n_estimators': 400, 'max_depth': 8,  'learning_rate': 0.1  } 
+       ```                      
+       """)
 
-     st.write(" ### Results:")
-     sel_option = st.radio("Choose an option", ["3 minutes", "4 minutes"], key="unique_key_here")
+       st.write(" ### Results:")
+       sel_option = st.radio("Choose an option", ["3 minutes", "4 minutes"], key="unique_key_here")
 
-     if sel_option == "3 minutes":
-      y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_xgb3.csv')
-      y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_xgb3.csv')
-      y_test_np = y_test.values.flatten()
-      y_pred_np = y_pred.values.flatten()
-      class_mapping = {0: '00-03min', 1: '03-06min', 2: '06-09min', 3: '09-12min', 4: '12-15min', 5: '> 15min'}  # und so weiter...
-      # Umbenennung der Klassen in y_test und y_pred
-      y_test_mapped = [class_mapping[y] for y in y_test_np]
-      y_pred_mapped = [class_mapping[y] for y in y_pred_np]
-     # Erstellung des classification reports mit den neuen Klassenbezeichnungen
-      report = classification_report(y_test_mapped, y_pred_mapped)
-      conf_matrix = confusion_matrix(y_test_np, y_pred_np)
-      cm = pd.DataFrame(conf_matrix, columns=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'],
-                           index=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'])
-     if sel_option == '4 minutes':
-      y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_xgb4.csv')
-      y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_xgb4.csv')
-      y_test_np = y_test.values.flatten()
-      y_pred_np = y_pred.values.flatten()
-      class_mapping = {0: '00-04min', 1: '04-08min', 2: '08-12min', 3: '12-16min', 4: '> 16min'}  # und so weiter...
-      # Umbenennung der Klassen in y_test und y_pred
-      y_test_mapped = [class_mapping[y] for y in y_test_np]
-      y_pred_mapped = [class_mapping[y] for y in y_pred_np]
-      # Erstellung des classification reports mit den neuen Klassenbezeichnungen
-      report = classification_report(y_test_mapped, y_pred_mapped)    # output_mapped=True)
-      conf_matrix = confusion_matrix(y_test_np, y_pred_np)
-      cm = pd.DataFrame(conf_matrix, columns=['0-4min', '4-8min', '8-12min', '12-16min', '>16min'],
-                           index=['0-4min', '4-8min', '8-12min', '12-16min', '>16min'])
+       if sel_option == "3 minutes":
+        y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_xgb3.csv')
+        y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_xgb3.csv')
+        y_test_np = y_test.values.flatten()
+        y_pred_np = y_pred.values.flatten()
+        class_mapping = {0: '00-03min', 1: '03-06min', 2: '06-09min', 3: '09-12min', 4: '12-15min', 5: '> 15min'}  # und so weiter...
+        # Umbenennung der Klassen in y_test und y_pred
+        y_test_mapped = [class_mapping[y] for y in y_test_np]
+        y_pred_mapped = [class_mapping[y] for y in y_pred_np]
+       # Erstellung des classification reports mit den neuen Klassenbezeichnungen
+        report = classification_report(y_test_mapped, y_pred_mapped)
+        conf_matrix = confusion_matrix(y_test_np, y_pred_np)
+        cm = pd.DataFrame(conf_matrix, columns=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'],
+                             index=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'])
+       if sel_option == '4 minutes':
+        y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_xgb4.csv')
+        y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_xgb4.csv')
+        y_test_np = y_test.values.flatten()
+        y_pred_np = y_pred.values.flatten()
+        class_mapping = {0: '00-04min', 1: '04-08min', 2: '08-12min', 3: '12-16min', 4: '> 16min'}  # und so weiter...
+        # Umbenennung der Klassen in y_test und y_pred
+        y_test_mapped = [class_mapping[y] for y in y_test_np]
+        y_pred_mapped = [class_mapping[y] for y in y_pred_np]
+        # Erstellung des classification reports mit den neuen Klassenbezeichnungen
+        report = classification_report(y_test_mapped, y_pred_mapped)    # output_mapped=True)
+        conf_matrix = confusion_matrix(y_test_np, y_pred_np)
+        cm = pd.DataFrame(conf_matrix, columns=['0-4min', '4-8min', '8-12min', '12-16min', '>16min'],
+                             index=['0-4min', '4-8min', '8-12min', '12-16min', '>16min'])
     
-     st.write(' ##### Classification Report')
-     st.text(report)
-     st.write(' ##### Confusion Matrix')
-     st.write(cm)
+       st.write(' ##### Classification Report')
+       st.text(report)
+       st.write(' ##### Confusion Matrix')
+       st.write(cm)
     
-
-
-
-
-
 
 if page == "Find out for yourself" : 
   import joblib
@@ -566,3 +558,43 @@ if page == "Find out for yourself" :
    
     pass
 
+if page == "Conclusion" :
+    # Insert Introduction contents here
+    st.write("## Conclusion")
+    st.write("### Empfehlungen an die Londoner Firebrigarde:")
+    st.markdown("""
+                #### From the data analysis:  
+                **Open Firestations in the outer boroughs**  
+                
+                Firestations haben eine längere Reaktionszeit, wenn sie in Außenbezirken liegen.
+                Vermutlich, weil das Gebiet, dass sie abdecken müssen größer ist und die Straßen 
+                nicht so gut ausgebaut sind.
+                Durch zusätzliche Firestations könnte man die Reaktionszeiten hier sicherlich verkürzen.
+                Dies würde aber zusätzliche Kosten nach sich ziehen. Es scheint also eine Abwägung 
+                zu sein zwischen kurzen Reaktionszeiten und Kosten. Außerdem gibt es hier weniger 
+                Einsätze, da die Gebiete dünner besiedelt sind.
+                  
+                  
+                **Launch an information campaign to reduce false alarms**
+                
+                An information campaign would definitely be worthwhile, as almost half of all alarms 
+                are false alarms. This could certainly also reduce costs.
+                
+                #### From the prediction model:
+                
+                **Give Information about the expected response time**
+                
+                The prediction model could be installed at the emergency call centre.
+                Callers could be told when they can expect the fire brigade to arrive.
+                This could help to reassure callers.
+                
+                **Development of an app**
+                
+                The development of an app is conceivable so that the arrival time can be 
+                predicted automatically by linking it to the mobile phone GPS.
+                
+                """)
+ 
+    pass
+
+#
