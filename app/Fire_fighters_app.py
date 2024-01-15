@@ -29,7 +29,8 @@ if page == "Home":
     # Insert Introduction contents here
     # App title
     st.title("London Fire Brigade Response Time 2023") 
-    st.image("oct23_bds_int_firefighters/app/Lego_1.jpg", caption="How it take to the incident?", use_column_width=True)  
+    st.image("oct23_bds_int_firefighters/app/Lego_1.jpg", 
+             caption="How long does it take to the incident?", use_column_width=True)  
     st.write("#### The aim of this presentation is to give you an overview of our project, the modelling and the results. For further details, please refer to the detailed project report.")
     
     pass
@@ -40,7 +41,7 @@ elif page == "Introduction":
     st.write("### Description of the project:")
     st.write("#### Objective:")
     st.markdown("""
-        - Analyze and/or estimate response times for the London Fire Brigade/n                       
+        - Analyse and/or estimate response times for the London Fire Brigade                       
     """)
     st.write("#### Datasets:")
     st.markdown("""
@@ -51,8 +52,8 @@ elif page == "Introduction":
     """)
     st.write("#### Little Quiz:")
     st.markdown("""
-    - Which do you belive is the attendence time Goal of the London Fire Brigade?
-    - What is the main factor that inflence the attendence time?
+    - What do you believe is the targeted response time goal for the London Fire Brigade?
+    - What is the primary factor influencing the response time?
     """)
     pass
 elif page == "Exploration":
@@ -62,9 +63,9 @@ elif page == "Exploration":
     st.write("### Incident data")
     st.write("The 'Incident data' essentially contained information about:")
     st.markdown("""
-    - Attendence Time
+    - Attendance Time
     - Date and hour of call
-    - Which fire ftation
+    - Fire station name
     - Geo coordinates
     """)
     st.dataframe(df_i_2022.head(10))
@@ -80,7 +81,7 @@ elif page == "Exploration":
     st.markdown("""
     - Turnout time
     - Travel Time
-    - Attendence time
+    - Attendance time
     - Delay discription
     """)   
     st.dataframe(df_m_2022.head(10))
@@ -92,14 +93,14 @@ elif page == "Exploration":
        st.dataframe(df_m_2022.isna().sum())
        
     st.write("### Stations & Boroughs")
-    st.write("In order to calculate the distance between the fire stations and the location, we have researched the addresses of the current London fire stations and their geo-coordinates:")
+    st.write("To determine the distance between the fire stations and the location, we conducted research on the addresses of the existing London fire stations along with their geo coordinates:")
     st.dataframe(stations_boroughs.head(10))
     
     st.write("")
     st.write("### Additional variables")
-    st.write("In order to have more explanatory variables available, we have added the following variables:")
+    st.write("To include additional explanatory variables, we have incorporated the following factors:")
     st.markdown("""
-    - Distance between fierstation and incidence
+    - Distance between firestation and incident
     - Distance between the centre of London and the firestation
     - Area of the boroughs
     - Population of the boroughs
@@ -107,17 +108,19 @@ elif page == "Exploration":
     """) 
     st.write("")
     st.write("## Formulas for Distance calculation")
-    st.image("oct23_bds_int_firefighters/app/Formula_distance_center.png", caption="Formula Distance Firestation from London center", use_column_width=True)
-    st.image("oct23_bds_int_firefighters/app/Formula_distance_station.png", caption="Formula Distance Incident from Firestation", use_column_width=True)
-    
-        
+    st.image("oct23_bds_int_firefighters/app/Formula_distance_station.png", 
+             caption="Formula: distance from incident to firestation", use_column_width=True)
+    st.image("oct23_bds_int_firefighters/app/Formula_distance_center.png", 
+             caption="Formula: distance from firestation to London center", use_column_width=True)
+       
     st.write("")
     st.write("### Deleted data")
     st.write("We have deleted variables that we did not need for our models.")
     st.markdown("""
-    - Many variables were duplicated, e.g. Firestation and Firestation Code or Geo Coordinates. We deleted duplicate variables.
+    - Many variables were duplicated, e.g. firestation and firestation code or geo coordinates. We deleted duplicated variables.
     - Some variables did not provide an explanation according to our first models. We have also deleted these.
-    - We deleted rows with a small number of NaN (<5%).
+    - We deleted rows with a small number of NaN in the cloumn(<5%).
+    - We take only the records for the first pump arriving.
     """) 
     
     st.write("")
@@ -134,40 +137,37 @@ elif page == "Data Visualization":
     with col3:
         st.write("### Target")
         st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_04_Bild_0001.png", 
-                 caption="Here you can see the three histogramms for turnouttime, traveltime and attendancetime. ", 
+                 caption="Turnouttime, traveltime, and attendance time in their distribution.", 
                  use_column_width=True )
         st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_13_Bild_0001.png", 
-                 caption="Here you can see the three histogramms for turnouttime, traveltime and attendancetime. ", 
+                 caption="First pump turnout time and hour of call.", 
                  use_column_width=True )
         
         st.image("oct23_bds_int_firefighters/app/hour_of_call.png", 
-                 caption="Lorem ipsum dolor sit amet, consectetur adipiscing elit.", 
+                 caption="First pump attendance time and hour of call.", 
                  use_column_width=True )
         st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_07_Bild_0001.png", 
-                 caption="Lorem ipsum dolor sit amet, consectetur adipiscing elit.", 
+                 caption="Incident description.", 
                  use_column_width=True )
     with col2:
         st.write("### Firestations")
         st.image("oct23_bds_int_firefighters/app/bourughs by incidents.png", 
-                 caption="The capacity utilisation in the individual districts ranges from less than 20000 to almost 120000.", 
-                 use_column_width=True )
-        st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_02_Bild_0001 Kopie.png", 
-                 caption="The plot impressively illustrates how fire stations are opened and closed over the years.", 
+                 caption="The boroughs and the total number of incidents.", 
                  use_column_width=True )
         st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_05_Bild_0001 Kopie.png", 
-                 caption="The capacity utilisation in the individual districts ranges from less than 20000 to almost 120000.", 
+                 caption="The 103 firestations and their attendance time over the years.", 
                  use_column_width=True )
         
     with col1:
         st.write("### London")
         st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_18_Bild_0002 Kopie.png", 
-                 caption="The charts show the Greater London area based on fire service operations and stations, provide a differentiated insight into the regional dynamics.",
+                 caption="The number of incidents by geo data.",
                  use_column_width=True )
         st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_19_Bild_0001.png", 
-                 caption="The scatterplot makes it easy to recognise the locations. You even can make out individual streets. Or a diffenrence between inner or outer London", 
+                 caption="Mean attendance time by geo data.", 
                  use_column_width=True )
         st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_19_Bild_0002.png", 
-                 caption="The scatterplot makes it easy to recognise the locations. You even can make out individual streets. Or a diffenrence between inner or outer London", 
+                 caption="Mean attendance time of the firestations by geo data.", 
                  use_column_width=True )
             
     pass
@@ -188,7 +188,7 @@ elif page == "Modelling":
                            
       """)
 
-      st.write (' #### Approach in Regressinon Models')
+      st.write (' #### Approach in Regression Models')
       st.markdown("""
       - Performance measurement: $R^2$ - Value
       - Looking at Attendance Time as well as Turnout Time and Travel Time separately, where:
@@ -209,8 +209,9 @@ elif page == "Modelling":
       """)
 
     if subpage == "Regression with Random Forest":
+       st.markdown(" ## Random Forest Regression")
        st.markdown("""
-       For the Random Forest model we used following variables 
+       For the Random Forest model we used following variables: 
        ```python
        features = 
           ['distance', 'HourOfCall', 'CalYear', 'FirstPumpArriving_DeployedFromStation', 
@@ -237,14 +238,14 @@ elif page == "Modelling":
        st.markdown(" ## Random Forest Classifier")
        # Markdown-Text
        st.markdown("""
-       - We attempted to incorporate different features::
+       - We attempted to incorporate different features:
        ```python
        features = 
           ['distance', 'bor_sqkm', 'Month', 'DayOfWeek', 'distance_stat', 'pop', 
           'area_sqkm_stat', 'station', 'PropertyType', 'IncidentStationGround', 
           'FirstPumpArriving_DeployedFromStation', 'HourOfCall', 'CallsPerIncident']     
        ```
-       - We conducted two distinct grid searches on one year of the data::
+       - We conducted two distinct grid searches on one year of the data:
        ```python
        param_grid = {'n_estimators': [50, 100, 200],  
                      'max_depth': [None, 10, 20, 30],  
@@ -313,7 +314,7 @@ elif page == "Modelling":
        st.markdown(" ## XGBoost Classifier")
        # Markdown-Text
        st.markdown("""
-       - We incorporated many different features::
+       - We incorporated many different features:
        ```python
        features = [
            'CallsPerIncidents', 'distance', 'bor_sqkm', 'Month', 'DayOfWeek', 
@@ -322,7 +323,7 @@ elif page == "Modelling":
            'IncidentStationGround', 'FirstPumpArriving_DeployedFromStation', 
            'DateAndTimeMobilised', 'IncGeo_WardName']
        ```
-       - We conducted two distinct grid searches on one year of the data::
+       - We conducted two distinct grid searches on one year of the data:
        ```python
        param_grid = {
                       'n_estimators': [50, 200, 400, 600],  
@@ -445,7 +446,7 @@ if page == "Find out for yourself" :
 
   sb = pd.read_csv("oct23_bds_int_firefighters/app/sb.csv")
   # Streamlit App
-  st.subheader('Find Nearest Fire Stations')
+  st.subheader('Find nearest firestations')
 
   # Input field for the address
   address = st.text_input('Enter an address in London:')
@@ -527,52 +528,55 @@ if page == "Find out for yourself" :
     def arrival_time_message(prediction):
         if minutes == 3:
             if prediction == 0:
-                return '0 to 3 minutes'
+                return r'\textcolor{green}{\text{0 to 3 minutes}}'
             elif prediction == 1:
-                 return '3 to 6 minutes'
-            elif prediction == 2:
-                return '6 to 9 minutes'
-            elif prediction == 3:
-                return '9 to 12 minutes'
-            elif prediction == 4:
-                return '12 to 15 minutes'
-            else:
-                return 'more than 15 minutes'
+                return r'\textcolor{green}{ \text{3 to 6 minutes}}' 
+            elif prediction == 2:                #return '6 to 9 minutes'
+                return r'\textcolor{green}{\text{6 to 9 minutes}}'
+            elif prediction == 3:                 #return '9 to 12 minutes'
+                return  r'\textcolor{green}{\text{9 to 12 minutes}}'
+            elif prediction == 4:                 #return '12 to 15 minutes'
+                return r'\textcolor{green}{\text{12 to 15 minutes}}'
+            else:                #return 'more than 15 minutes'
+                return r'\textcolor{green}{\text{return more than 15 minutes}}'
         else:
-            if prediction == 0:
-                return '0 to 4 minutes'
-            elif prediction == 1:
-                 return '4 to 8 minutes'
-            elif prediction == 2:
-                return '8 to 12 minutes'
-            elif prediction == 3:
-                return '12 to 16 minutes'
-            else:
-                return 'more than 16 minutes'    
-            
+            if prediction == 0:                #return '0 to 4 minutes'
+                return r'\textcolor{green}{\text{0 to 4 minutes}}'
+            elif prediction == 1:                # return '4 to 8 minutes'
+               return r'\textcolor{green}{\text{4 to 8 minutes}}'
+            elif prediction == 2:                #return '8 to 12 minutes'
+                return r'\textcolor{green}{\text{8 to 12 minutes}}'
+            elif prediction == 3:                #return '12 to 16 minutes'
+               return r'\textcolor{green}{\text{12 to 16 minutes}}'
+            else:                #return 'more than 16 minutes'
+               return r'\textcolor{green}{\text{more than 16 minutes}}'   
+    st.write("") 
+    st.write("")        
 
     arrival_times = ['nearest', 'second nearest', 'third nearest']
     for i, time in enumerate(arrival_times):
-       st.markdown(f"**If the {time} fire station sends the pump it should arrive within:**")
-       st.write(arrival_time_message(xp[i]))
+       markdown_text = f"If the _{time}_ fire station sends the pump, it should arrive within:"
+       larger_text = f"##### {markdown_text}"
+       st.markdown(larger_text)
+       st.latex(arrival_time_message(xp[i]))
    
     pass
 
 if page == "Conclusion" :
     # Insert Introduction contents here
     st.write("## Conclusion")
-    st.write("### Empfehlungen an die Londoner Firebrigarde:")
+    st.write("### Recommendations to the London Fire Brigade:")
     st.markdown("""
                 #### From the data analysis:  
-                **Open Firestations in the outer boroughs**  
+                **Open firestations in the outer boroughs**  
                 
-                Firestations haben eine längere Reaktionszeit, wenn sie in Außenbezirken liegen.
-                Vermutlich, weil das Gebiet, dass sie abdecken müssen größer ist und die Straßen 
-                nicht so gut ausgebaut sind.
-                Durch zusätzliche Firestations könnte man die Reaktionszeiten hier sicherlich verkürzen.
-                Dies würde aber zusätzliche Kosten nach sich ziehen. Es scheint also eine Abwägung 
-                zu sein zwischen kurzen Reaktionszeiten und Kosten. Außerdem gibt es hier weniger 
-                Einsätze, da die Gebiete dünner besiedelt sind.
+                Firestations have a longer response time if they are located in outlying areas.
+                This is probably because the area they have to cover is larger and the roads are 
+                not as well developed.
+                Additional fire stations could certainly shorten the response times here.
+                However, this would entail additional costs. So it seems to be a trade-off 
+                between short response times and costs. In addition, there are fewer 
+                deployments as the areas are less densely populated.
                   
                   
                 **Launch an information campaign to reduce false alarms**
@@ -592,6 +596,8 @@ if page == "Conclusion" :
                 
                 The development of an app is conceivable so that the arrival time can be 
                 predicted automatically by linking it to the mobile phone GPS.
+                Furthermore, a high proportion of delays are due to incorrect or 
+                incomplete addresses. Automatic transmission of the GPS signal could reduce this.
                 
                 """)
  
