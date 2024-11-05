@@ -1,3 +1,4 @@
+#c:/Users/User/Documents/Jens/Data_Scientist/FireFighters/oct23_bds_int_firefighters/app/Fire_fighters_app.py
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -10,17 +11,19 @@ from PIL import Image
 
 
 # Read data
-df_i_2022=pd.read_csv("oct23_bds_int_firefighters/data/raw/df_i_2022.csv")
-df_m_2022=pd.read_csv("oct23_bds_int_firefighters/data/raw/df_m_2022.csv")
-stations_boroughs=pd.read_csv("oct23_bds_int_firefighters/data/raw/stations_boroughs.csv")
-
+#df_i_2022=pd.read_csv('C:\\Users\sasch\OneDrive\\Desktop\\Olga\\FirefightersProject\\oct23_bds_int_firefighters\data\\raw\\df_i_2022.csv')
+df_i_2022=pd.read_csv("data\\raw\\df_i_2022.csv")
+#df_m_2022=pd.read_csv("C:\\Users\sasch\OneDrive\\Desktop\\Olga\\FirefightersProject\\oct23_bds_int_firefighters\data\\raw\\df_m_2022.csv")
+df_m_2022 = pd.read_csv("data\\raw\\df_m_2022.csv")
+#stations_boroughs=pd.read_csv("C:\\Users\sasch\OneDrive\\Desktop\\Olga\\FirefightersProject\\oct23_bds_int_firefighters\data\\raw\\stations_boroughs.csv")
+stations_boroughs=pd.read_csv("data\\raw\\stations_boroughs.csv")
 
 
 
 
 # Sidebar title and page selection
 st.sidebar.title("Table of Contents")
-pages = ["Home","Introduction","Exploration", "Data Visualization", "Modelling", 
+pages = ["Home","Introduction", "Exploration", "Data Visualization", "Modelling", 
          "Find out for yourself", "Conclusion"]
 page = st.sidebar.radio("Go to", pages)
 
@@ -29,8 +32,8 @@ if page == "Home":
     # Insert Introduction contents here
     # App title
     st.title("London Fire Brigade Response Time 2023") 
-    st.image("oct23_bds_int_firefighters/app/Lego_1.jpg", 
-             caption="How long does it take to the incident?", use_column_width=True)  
+    st.image("app\\Lego_1.jpg", caption="How long does it take to the incident?", use_column_width=True)  
+
     st.write("#### The aim of this presentation is to give you an overview of our project, the modelling and the results. For further details, please refer to the detailed project report.")
     
     pass
@@ -93,7 +96,7 @@ elif page == "Exploration":
        st.dataframe(df_m_2022.isna().sum())
        
     st.write("### Stations & Boroughs")
-    st.write("To determine the distance between the fire stations and the location, we conducted research on the addresses of the existing London fire stations along with their geo coordinates:")
+    st.write("To determine the distance between the fire stations and the incident location, we conducted research on the addresses of the existing London fire stations along with their geo coordinates.:")
     st.dataframe(stations_boroughs.head(10))
     
     st.write("")
@@ -108,19 +111,18 @@ elif page == "Exploration":
     """) 
     st.write("")
     st.write("## Formulas for Distance calculation")
-    st.image("oct23_bds_int_firefighters/app/Formula_distance_station.png", 
-             caption="Formula: distance from incident to firestation", use_column_width=True)
-    st.image("oct23_bds_int_firefighters/app/Formula_distance_center.png", 
-             caption="Formula: distance from firestation to London center", use_column_width=True)
-       
+    st.image("Formula_distance_station.png", caption="Formula: Distance from Incident to Firestation", use_column_width=True)
+    st.image("Formula_distance_center.png", caption="Formula: Distance from Firestation to London center", use_column_width=True)
+    
+        
     st.write("")
     st.write("### Deleted data")
     st.write("We have deleted variables that we did not need for our models.")
     st.markdown("""
-    - Many variables were duplicated, e.g. firestation and firestation code or geo coordinates. We deleted duplicated variables.
+    - Many variables were duplicated, e.g. Firestation and Firestation Code or Geo Coordinates. We deleted duplicated variables.
     - Some variables did not provide an explanation according to our first models. We have also deleted these.
-    - We deleted rows with a small number of NaN in the cloumn(<5%).
-    - We take only the records for the first pump arriving.
+    - We deleted rows with a small number of NaN (<5%).
+    - We focused solely on the first pump in attendance and deleted the other rows. 
     """) 
     
     st.write("")
@@ -136,38 +138,41 @@ elif page == "Data Visualization":
     col1, col2, col3 = st.columns(3)
     with col3:
         st.write("### Target")
-        st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_04_Bild_0001.png", 
+        st.image("app\\Plot_Firefighter_Seite_04_Bild_0001.png", 
                  caption="Turnouttime, traveltime, and attendance time in their distribution.", 
                  use_column_width=True )
-        st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_13_Bild_0001.png", 
-                 caption="First pump turnout time and hour of call.", 
+        st.image("app\\Plot_Firefighter_Seite_13_Bild_0001.png", 
+                 caption="First pump turnout time and hour of call. ", 
                  use_column_width=True )
         
-        st.image("oct23_bds_int_firefighters/app/hour_of_call.png", 
+        st.image("app\\hour_of_call.png", 
                  caption="First pump attendance time and hour of call.", 
                  use_column_width=True )
-        st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_07_Bild_0001.png", 
+        st.image("app\\Plot_Firefighter_Seite_07_Bild_0001.png", 
                  caption="Incident description.", 
                  use_column_width=True )
     with col2:
         st.write("### Firestations")
-        st.image("oct23_bds_int_firefighters/app/bourughs by incidents.png", 
+        st.image("app\\bourughs by incidents.png", 
                  caption="The boroughs and the total number of incidents.", 
                  use_column_width=True )
-        st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_05_Bild_0001 Kopie.png", 
+        #st.image("Plot_Firefighter_Seite_02_Bild_0001 Kopie.png", 
+        #         caption="The plot impressively illustrates how fire stations are opened and closed over the years.", 
+        #         use_column_width=True )
+        st.image("app\\Plot_Firefighter_Seite_05_Bild_0001 Kopie.png", 
                  caption="The 103 firestations and their attendance time over the years.", 
                  use_column_width=True )
         
     with col1:
         st.write("### London")
-        st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_18_Bild_0002 Kopie.png", 
+        st.image("app\\Plot_Firefighter_Seite_18_Bild_0002 Kopie.png", 
                  caption="The number of incidents by geo data.",
                  use_column_width=True )
-        st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_19_Bild_0001.png", 
+        st.image("app\\Plot_Firefighter_Seite_19_Bild_0001.png", 
                  caption="Mean attendance time by geo data.", 
                  use_column_width=True )
-        st.image("oct23_bds_int_firefighters/app/Plot_Firefighter_Seite_19_Bild_0002.png", 
-                 caption="Mean attendance time of the firestations by geo data.", 
+        st.image("app\\Plot_Firefighter_Seite_19_Bild_0002.png", 
+                 caption="Mean attendance time of the firestations by geo data", 
                  use_column_width=True )
             
     pass
@@ -273,8 +278,8 @@ elif page == "Modelling":
        selected_option = st.radio("Choose an option", ["3 minutes", "4 minutes"])
 
        if selected_option == "3 minutes":
-        y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_rf3.csv')
-        y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_rf3.csv')
+        y_test = pd.read_csv('app\\y_test_rf3.csv')
+        y_pred = pd.read_csv('app\\y_pred_rf3.csv')
         y_test_np = y_test.values.flatten()
         y_pred_np = y_pred.values.flatten()
         class_mapping = {1: '00-03min', 2: '03-06min', 3: '06-09min', 4: '09-12min', 5: '12-15min', 6: '> 15min'}  # und so weiter...
@@ -287,8 +292,8 @@ elif page == "Modelling":
         cm = pd.DataFrame(conf_matrix, columns=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'],
                              index=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'])
        if selected_option == '4 minutes':
-        y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_rf4.csv')
-        y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_rf4.csv')
+        y_test = pd.read_csv('app\\y_test_rf4.csv')
+        y_pred = pd.read_csv('app\\y_pred_rf4.csv')
         y_test_np = y_test.values.flatten()
         y_pred_np = y_pred.values.flatten()
         class_mapping = {1: '00-04min', 2: '04-08min', 3: '08-12min', 4: '12-16min', 5: '> 16min'}  # und so weiter...
@@ -346,8 +351,8 @@ elif page == "Modelling":
        sel_option = st.radio("Choose an option", ["3 minutes", "4 minutes"], key="unique_key_here")
 
        if sel_option == "3 minutes":
-        y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_xgb3.csv')
-        y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_xgb3.csv')
+        y_test = pd.read_csv('app\\y_test_xgb3.csv')
+        y_pred = pd.read_csv('app\\y_pred_xgb3.csv')
         y_test_np = y_test.values.flatten()
         y_pred_np = y_pred.values.flatten()
         class_mapping = {0: '00-03min', 1: '03-06min', 2: '06-09min', 3: '09-12min', 4: '12-15min', 5: '> 15min'}  # und so weiter...
@@ -360,8 +365,8 @@ elif page == "Modelling":
         cm = pd.DataFrame(conf_matrix, columns=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'],
                              index=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'])
        if sel_option == '4 minutes':
-        y_test = pd.read_csv('oct23_bds_int_firefighters/app/y_test_xgb4.csv')
-        y_pred = pd.read_csv('oct23_bds_int_firefighters/app/y_pred_xgb4.csv')
+        y_test = pd.read_csv('app\\y_test_xgb4.csv')
+        y_pred = pd.read_csv('app\\y_pred_xgb4.csv')
         y_test_np = y_test.values.flatten()
         y_pred_np = y_pred.values.flatten()
         class_mapping = {0: '00-04min', 1: '04-08min', 2: '08-12min', 3: '12-16min', 4: '> 16min'}  # und so weiter...
@@ -392,9 +397,9 @@ if page == "Find out for yourself" :
   if selected_option == "3 minutes":
     minutes = 3
     st.write(" ### Results of the model for 3 minutes classification")
-    xgb = joblib.load("oct23_bds_int_firefighters/app/XGB3kurzII.pkl")
-    yt_xgb3 = pd.read_csv('oct23_bds_int_firefighters/app/yt_xgb3.csv')
-    yp_xgb3 = pd.read_csv('oct23_bds_int_firefighters/app/yp_xgb3.csv')
+    xgb = joblib.load("app\\XGB3kurzII.pkl")
+    yt_xgb3 = pd.read_csv('app\\yt_xgb3.csv')
+    yp_xgb3 = pd.read_csv('app\\yp_xgb3.csv')
 
     yt = yt_xgb3.values.flatten()
     yp = yp_xgb3.values.flatten()
@@ -414,9 +419,9 @@ if page == "Find out for yourself" :
   else:
     minutes = 4
     st.write(" ### Results of the model for 4 minutes classification")
-    xgb = joblib.load("oct23_bds_int_firefighters/app/XGB4kurz.pkl")
-    yt_xgb4 = pd.read_csv('oct23_bds_int_firefighters/app/yt_xgb4.csv')
-    yp_xgb4 = pd.read_csv('oct23_bds_int_firefighters/app/yp_xgb4.csv')
+    xgb = joblib.load("app\\XGB4kurz.pkl")
+    yt_xgb4 = pd.read_csv('app\\yt_xgb4.csv')
+    yp_xgb4 = pd.read_csv('app\\yp_xgb4.csv')
 
     yt = yt_xgb4.values.flatten()
     yp = yp_xgb4.values.flatten()
@@ -442,14 +447,15 @@ if page == "Find out for yourself" :
   import datetime
   from datetime import datetime
   import pytz
-  
+  import time
 
-  sb = pd.read_csv("oct23_bds_int_firefighters/app/sb.csv")
+  sb = pd.read_csv("app\\sb.csv")
   # Streamlit App
   st.subheader('Find nearest firestations')
 
   # Input field for the address
   address = st.text_input('Enter an address in London:')
+  #st.write(f"Address entered by user: {address}")
 
   if address:
     # Check if the address contains "London"
@@ -457,18 +463,25 @@ if page == "Find out for yourself" :
         st.write("Please enter an address in London.")
     else:
         # Initialize geocoder and restrict to London
-        geolocator = Nominatim(user_agent="my_geocoder")
-        geolocator.headers = {"accept-language": "en-US,en;q=0.5"}
+        geolocator = Nominatim(user_agent="firefighters_project", timeout=10)
+        #geolocator.headers = {"accept-language": "en-US,en;q=0.5"}
         geolocator.country_bias = "United Kingdom"
-        #geolocator.view_box = (-0.510375, 51.286760, 0.334015, 51.691874)  # London area
-        geolocator.view_box = (-1.0, 51.0, 1.0, 52.0)
+        geolocator.view_box = (-0.510375, 51.286760, 0.334015, 51.691874)  # London area
+        #geolocator.view_box = (-1.0, 51.0, 1.0, 52.0)
         #(min_lon, min_lat, max_lon, max_lat) angeordnet:
         #min_lon: Minimale Längengradposition (westlichster Punkt)
         #min_lat: Minimale Breitengradposition (südlichster Punkt)
         #max_lon: Maximale Längengradposition (östlichster Punkt)
         #max_lat: Maximale Breitengradposition (nördlichster Punkt)
         # Attempt to retrieve coordinates
+        #geolocator = Nominatim(user_agent="my_test_app")
+        #location = geolocator.geocode(address)
+        # st.write("Location object:", location)
+        # st.write("Address:", location.address)
+        # st.write("Latitude:", location.latitude)
+        # st.write("Longitude:", location.longitude)
         try:
+            time.sleep(1)
             location = geolocator.geocode(address)
             if location:
                 st.subheader('Coordinates of the given adress:')
@@ -524,7 +537,8 @@ if page == "Find out for yourself" :
     st.dataframe(x)
 
     xp = xgb.predict(x)
- 
+
+    
     def arrival_time_message(prediction):
         if minutes == 3:
             if prediction == 0:
@@ -548,10 +562,12 @@ if page == "Find out for yourself" :
                 return r'\textcolor{green}{\text{8 to 12 minutes}}'
             elif prediction == 3:                #return '12 to 16 minutes'
                return r'\textcolor{green}{\text{12 to 16 minutes}}'
-            else:                #return 'more than 16 minutes'
-               return r'\textcolor{green}{\text{more than 16 minutes}}'   
-    st.write("") 
-    st.write("")        
+            else:                #return 'more than 16 minutes'   
+               return r'\textcolor{green}{\text{more than 16 minutes}}'
+            
+
+    st.write("")
+    st.write("")
 
     arrival_times = ['nearest', 'second nearest', 'third nearest']
     for i, time in enumerate(arrival_times):
@@ -559,48 +575,44 @@ if page == "Find out for yourself" :
        larger_text = f"##### {markdown_text}"
        st.markdown(larger_text)
        st.latex(arrival_time_message(xp[i]))
+       
    
-    pass
 
 if page == "Conclusion" :
     # Insert Introduction contents here
     st.write("## Conclusion")
     st.write("### Recommendations to the London Fire Brigade:")
     st.markdown("""
-                #### From the data analysis:  
-                **Open firestations in the outer boroughs**  
-                
-                Firestations have a longer response time if they are located in outlying areas.
+                #### From the data analysis:
+                **Open Firestations in the outer boroughs**
+
+                Fire stations have a longer response time if they are located in outlying areas.
                 This is probably because the area they have to cover is larger and the roads are 
                 not as well developed.
-                Additional fire stations could certainly shorten the response times here.
+                Additional firestations could certainly shorten the response times here.
                 However, this would entail additional costs. So it seems to be a trade-off 
                 between short response times and costs. In addition, there are fewer 
                 deployments as the areas are less densely populated.
-                  
-                  
+
                 **Launch an information campaign to reduce false alarms**
-                
+
                 An information campaign would definitely be worthwhile, as almost half of all alarms 
                 are false alarms. This could certainly also reduce costs.
-                
+
                 #### From the prediction model:
-                
+
                 **Give Information about the expected response time**
-                
+
                 The prediction model could be installed at the emergency call centre.
                 Callers could be told when they can expect the fire brigade to arrive.
                 This could help to reassure callers.
-                
+
                 **Development of an app**
-                
+
                 The development of an app is conceivable so that the arrival time can be 
                 predicted automatically by linking it to the mobile phone GPS.
                 Furthermore, a high proportion of delays are due to incorrect or 
                 incomplete addresses. Automatic transmission of the GPS signal could reduce this.
-                
                 """)
  
     pass
-
-#
