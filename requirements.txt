@@ -1,11 +1,7 @@
-streamlit==1.0.0         # eine neuere Version als 0.89.0, um mit moderneren Abhängigkeiten kompatibel zu sein
-matplotlib>=3.5.0
+streamlit==0.89.0
 pandas>=1.5.0
-numpy>=1.24.0
-seaborn==0.11.2
-scikit-learn==1.2.2      # diese Version unterstützt Python 3.11 gut
 joblib>=1.1.0
+scikit-learn>=1.2.0  # Für neuere Funktionen in sklearn
 geopy==2.2.0
 pytz
-setuptools>=65.5.0
-protobuf==3.20.3
+protobuf==3.20.3  # Damit kompatibel mit deiner Version von Streamlit

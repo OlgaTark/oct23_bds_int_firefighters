@@ -1,12 +1,19 @@
 #c:/Users/User/Documents/Jens/Data_Scientist/FireFighters/oct23_bds_int_firefighters/app/Fire_fighters_app.py
 import streamlit as st
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+#import numpy as np
+#import matplotlib.pyplot as plt
+#import seaborn as sns
 import joblib
-from PIL import Image
-
+#from PIL import Image
+#import joblib
+from sklearn.metrics import confusion_matrix, classification_report
+from geopy.geocoders import Nominatim
+from geopy.distance import geodesic
+import datetime
+from datetime import datetime
+import pytz
+import time
 
 
 
@@ -111,8 +118,8 @@ elif page == "Exploration":
     """) 
     st.write("")
     st.write("## Formulas for Distance calculation")
-    st.image("Formula_distance_station.png", caption="Formula: Distance from Incident to Firestation", use_column_width=True)
-    st.image("Formula_distance_center.png", caption="Formula: Distance from Firestation to London center", use_column_width=True)
+    st.image("app\\Formula_distance_station.png", caption="Formula: Distance from Incident to Firestation", use_column_width=True)
+    st.image("app\\Formula_distance_center.png", caption="Formula: Distance from Firestation to London center", use_column_width=True)
     
         
     st.write("")
@@ -179,8 +186,8 @@ elif page == "Data Visualization":
 
 
 elif page == "Modelling":
-    import joblib
-    from sklearn.metrics import confusion_matrix, classification_report
+    # import joblib
+    # from sklearn.metrics import confusion_matrix, classification_report
   
     subpages = ["General Approach", "Regression with Random Forest", "Random Forest Classifier", "XGBoost Classifier"]
     subpage = st.sidebar.radio("Go to", subpages)
@@ -386,8 +393,8 @@ elif page == "Modelling":
     
 
 if page == "Find out for yourself" : 
-  import joblib
-  from sklearn.metrics import confusion_matrix, classification_report
+#   import joblib
+#   from sklearn.metrics import confusion_matrix, classification_report
   #XGBoost Classifier for 4min Classes, 5 features and trained on years 2020, 2021, 2022
   st.subheader( "XGBoost Classifier trained and tested on 5 features using data from the years 2020, 2021, and 2022:")
 
@@ -440,14 +447,12 @@ if page == "Find out for yourself" :
                            index=['0-4min', '4-8min', '8-12min', '12-16min', '>16min']))
 
 
-  from geopy.geocoders import Nominatim
-  from geopy.distance import geodesic
-  #import streamlit as st
-  #import pandas as pd
-  import datetime
-  from datetime import datetime
-  import pytz
-  import time
+#   from geopy.geocoders import Nominatim
+#   from geopy.distance import geodesic
+#   import datetime
+#   from datetime import datetime
+#   import pytz
+#   import time
 
   sb = pd.read_csv("app\\sb.csv")
   # Streamlit App
