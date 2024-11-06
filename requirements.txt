@@ -5,3 +5,5 @@ scikit-learn>=1.2.0  # Für neuere Funktionen in sklearn
 geopy==2.2.0
 pytz
 protobuf==3.20.3  # Damit kompatibel mit deiner Version von Streamlit
+setuptools>=65.5.0
+
