@@ -7,3 +7,4 @@ pytz
 protobuf==3.20.3  # Damit kompatibel mit deiner Version von Streamlit
 setuptools>=65.5.0
 protobuf>=3.20.3
+xgboost
