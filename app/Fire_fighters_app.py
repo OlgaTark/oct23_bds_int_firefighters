@@ -39,7 +39,7 @@ if page == "Home":
     # Insert Introduction contents here
     # App title
     st.title("London Fire Brigade Response Time 2023") 
-    st.image("app\\Lego_1.jpg", caption="How long does it take to the incident?", use_column_width=True)  
+    st.image("app/Lego_1.jpg", caption="How long does it take to the incident?", use_column_width=True)  
 
     st.write("#### The aim of this presentation is to give you an overview of our project, the modelling and the results. For further details, please refer to the detailed project report.")
     
@@ -118,8 +118,8 @@ elif page == "Exploration":
     """) 
     st.write("")
     st.write("## Formulas for Distance calculation")
-    st.image("app\\Formula_distance_station.png", caption="Formula: Distance from Incident to Firestation", use_column_width=True)
-    st.image("app\\Formula_distance_center.png", caption="Formula: Distance from Firestation to London center", use_column_width=True)
+    st.image("app/Formula_distance_station.png", caption="Formula: Distance from Incident to Firestation", use_column_width=True)
+    st.image("app/Formula_distance_center.png", caption="Formula: Distance from Firestation to London center", use_column_width=True)
     
         
     st.write("")
