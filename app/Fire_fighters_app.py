@@ -19,11 +19,11 @@ import time
 
 # Read data
 #df_i_2022=pd.read_csv('C:\\Users\sasch\OneDrive\\Desktop\\Olga\\FirefightersProject\\oct23_bds_int_firefighters\data\\raw\\df_i_2022.csv')
-df_i_2022=pd.read_csv("data\\raw\\df_i_2022.csv")
+df_i_2022=pd.read_csv("data/raw/df_i_2022.csv")
 #df_m_2022=pd.read_csv("C:\\Users\sasch\OneDrive\\Desktop\\Olga\\FirefightersProject\\oct23_bds_int_firefighters\data\\raw\\df_m_2022.csv")
-df_m_2022 = pd.read_csv("data\\raw\\df_m_2022.csv")
+df_m_2022 = pd.read_csv("data/raw/df_m_2022.csv")
 #stations_boroughs=pd.read_csv("C:\\Users\sasch\OneDrive\\Desktop\\Olga\\FirefightersProject\\oct23_bds_int_firefighters\data\\raw\\stations_boroughs.csv")
-stations_boroughs=pd.read_csv("data\\raw\\stations_boroughs.csv")
+stations_boroughs=pd.read_csv("data/raw/stations_boroughs.csv")
 
 
 
