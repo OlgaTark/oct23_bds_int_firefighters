@@ -145,40 +145,40 @@ elif page == "Data Visualization":
     col1, col2, col3 = st.columns(3)
     with col3:
         st.write("### Target")
-        st.image("app\\Plot_Firefighter_Seite_04_Bild_0001.png", 
+        st.image("app/Plot_Firefighter_Seite_04_Bild_0001.png", 
                  caption="Turnouttime, traveltime, and attendance time in their distribution.", 
                  use_column_width=True )
-        st.image("app\\Plot_Firefighter_Seite_13_Bild_0001.png", 
+        st.image("app/Plot_Firefighter_Seite_13_Bild_0001.png", 
                  caption="First pump turnout time and hour of call. ", 
                  use_column_width=True )
         
-        st.image("app\\hour_of_call.png", 
+        st.image("app/hour_of_call.png", 
                  caption="First pump attendance time and hour of call.", 
                  use_column_width=True )
-        st.image("app\\Plot_Firefighter_Seite_07_Bild_0001.png", 
+        st.image("app/Plot_Firefighter_Seite_07_Bild_0001.png", 
                  caption="Incident description.", 
                  use_column_width=True )
     with col2:
         st.write("### Firestations")
-        st.image("app\\bourughs by incidents.png", 
+        st.image("app/bourughs by incidents.png", 
                  caption="The boroughs and the total number of incidents.", 
                  use_column_width=True )
         #st.image("Plot_Firefighter_Seite_02_Bild_0001 Kopie.png", 
         #         caption="The plot impressively illustrates how fire stations are opened and closed over the years.", 
         #         use_column_width=True )
-        st.image("app\\Plot_Firefighter_Seite_05_Bild_0001 Kopie.png", 
+        st.image("app/Plot_Firefighter_Seite_05_Bild_0001 Kopie.png", 
                  caption="The 103 firestations and their attendance time over the years.", 
                  use_column_width=True )
         
     with col1:
         st.write("### London")
-        st.image("app\\Plot_Firefighter_Seite_18_Bild_0002 Kopie.png", 
+        st.image("app/Plot_Firefighter_Seite_18_Bild_0002 Kopie.png", 
                  caption="The number of incidents by geo data.",
                  use_column_width=True )
-        st.image("app\\Plot_Firefighter_Seite_19_Bild_0001.png", 
+        st.image("app/Plot_Firefighter_Seite_19_Bild_0001.png", 
                  caption="Mean attendance time by geo data.", 
                  use_column_width=True )
-        st.image("app\\Plot_Firefighter_Seite_19_Bild_0002.png", 
+        st.image("app/Plot_Firefighter_Seite_19_Bild_0002.png", 
                  caption="Mean attendance time of the firestations by geo data", 
                  use_column_width=True )
             
@@ -285,8 +285,8 @@ elif page == "Modelling":
        selected_option = st.radio("Choose an option", ["3 minutes", "4 minutes"])
 
        if selected_option == "3 minutes":
-        y_test = pd.read_csv('app\\y_test_rf3.csv')
-        y_pred = pd.read_csv('app\\y_pred_rf3.csv')
+        y_test = pd.read_csv('app/y_test_rf3.csv')
+        y_pred = pd.read_csv('app/y_pred_rf3.csv')
         y_test_np = y_test.values.flatten()
         y_pred_np = y_pred.values.flatten()
         class_mapping = {1: '00-03min', 2: '03-06min', 3: '06-09min', 4: '09-12min', 5: '12-15min', 6: '> 15min'}  # und so weiter...
@@ -299,8 +299,8 @@ elif page == "Modelling":
         cm = pd.DataFrame(conf_matrix, columns=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'],
                              index=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'])
        if selected_option == '4 minutes':
-        y_test = pd.read_csv('app\\y_test_rf4.csv')
-        y_pred = pd.read_csv('app\\y_pred_rf4.csv')
+        y_test = pd.read_csv('app/y_test_rf4.csv')
+        y_pred = pd.read_csv('app/y_pred_rf4.csv')
         y_test_np = y_test.values.flatten()
         y_pred_np = y_pred.values.flatten()
         class_mapping = {1: '00-04min', 2: '04-08min', 3: '08-12min', 4: '12-16min', 5: '> 16min'}  # und so weiter...
@@ -358,8 +358,8 @@ elif page == "Modelling":
        sel_option = st.radio("Choose an option", ["3 minutes", "4 minutes"], key="unique_key_here")
 
        if sel_option == "3 minutes":
-        y_test = pd.read_csv('app\\y_test_xgb3.csv')
-        y_pred = pd.read_csv('app\\y_pred_xgb3.csv')
+        y_test = pd.read_csv('app/y_test_xgb3.csv')
+        y_pred = pd.read_csv('app/y_pred_xgb3.csv')
         y_test_np = y_test.values.flatten()
         y_pred_np = y_pred.values.flatten()
         class_mapping = {0: '00-03min', 1: '03-06min', 2: '06-09min', 3: '09-12min', 4: '12-15min', 5: '> 15min'}  # und so weiter...
@@ -372,8 +372,8 @@ elif page == "Modelling":
         cm = pd.DataFrame(conf_matrix, columns=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'],
                              index=['0-3min', '3-6min', '6-9min', '9-12min', '12-15min', '>15min'])
        if sel_option == '4 minutes':
-        y_test = pd.read_csv('app\\y_test_xgb4.csv')
-        y_pred = pd.read_csv('app\\y_pred_xgb4.csv')
+        y_test = pd.read_csv('app/y_test_xgb4.csv')
+        y_pred = pd.read_csv('app/y_pred_xgb4.csv')
         y_test_np = y_test.values.flatten()
         y_pred_np = y_pred.values.flatten()
         class_mapping = {0: '00-04min', 1: '04-08min', 2: '08-12min', 3: '12-16min', 4: '> 16min'}  # und so weiter...
@@ -404,9 +404,9 @@ if page == "Find out for yourself" :
   if selected_option == "3 minutes":
     minutes = 3
     st.write(" ### Results of the model for 3 minutes classification")
-    xgb = joblib.load("app\\XGB3kurzII.pkl")
-    yt_xgb3 = pd.read_csv('app\\yt_xgb3.csv')
-    yp_xgb3 = pd.read_csv('app\\yp_xgb3.csv')
+    xgb = joblib.load("app/XGB3kurzII.pkl")
+    yt_xgb3 = pd.read_csv('app/yt_xgb3.csv')
+    yp_xgb3 = pd.read_csv('app/yp_xgb3.csv')
 
     yt = yt_xgb3.values.flatten()
     yp = yp_xgb3.values.flatten()
@@ -426,9 +426,9 @@ if page == "Find out for yourself" :
   else:
     minutes = 4
     st.write(" ### Results of the model for 4 minutes classification")
-    xgb = joblib.load("app\\XGB4kurz.pkl")
-    yt_xgb4 = pd.read_csv('app\\yt_xgb4.csv')
-    yp_xgb4 = pd.read_csv('app\\yp_xgb4.csv')
+    xgb = joblib.load("app\XGB4kurz.pkl")
+    yt_xgb4 = pd.read_csv('app\yt_xgb4.csv')
+    yp_xgb4 = pd.read_csv('app\yp_xgb4.csv')
 
     yt = yt_xgb4.values.flatten()
     yp = yp_xgb4.values.flatten()
@@ -454,7 +454,7 @@ if page == "Find out for yourself" :
 #   import pytz
 #   import time
 
-  sb = pd.read_csv("app\\sb.csv")
+  sb = pd.read_csv("app/sb.csv")
   # Streamlit App
   st.subheader('Find nearest firestations')
 
