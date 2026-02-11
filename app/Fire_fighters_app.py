@@ -426,9 +426,9 @@ if page == "Find out for yourself" :
   else:
     minutes = 4
     st.write(" ### Results of the model for 4 minutes classification")
-    xgb = joblib.load("app\XGB4kurz.pkl")
-    yt_xgb4 = pd.read_csv('app\yt_xgb4.csv')
-    yp_xgb4 = pd.read_csv('app\yp_xgb4.csv')
+    xgb = joblib.load("app/XGB4kurz.pkl")
+    yt_xgb4 = pd.read_csv('app/yt_xgb4.csv')
+    yp_xgb4 = pd.read_csv('app/yp_xgb4.csv')
 
     yt = yt_xgb4.values.flatten()
     yp = yp_xgb4.values.flatten()
